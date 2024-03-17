@@ -1,5 +1,5 @@
 {
-  "name": "skamentskiy/jrpc",
-  "version": "v0.0.3",
+  "name": "@skamentskiy/jrpc",
+  "version": "v0.0.4",
   "main": "src/main.ts"
 }

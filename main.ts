@@ -1,5 +1,64 @@
-import {createContext} from "../context/createContext.ts";
-import {App, methodDef} from "./App.ts";
+/**
+ * @name Context
+ * @desc Describes request context.
+ */
+export interface Context {
+  /**
+   * @name request
+   * @desc Returns request object.
+   */
+  request(): Request;
+
+  /**
+   * @name info
+   * @desc Returns info object.
+   */
+  info(): Deno.ServeHandlerInfo;
+}
+
+/**
+ * @name App
+ * @desc Application interface.
+ */
+export interface App {
+  /**
+   * @name registerService
+   * @desc Register a new service.
+   * @param name Service name.
+   * @param service Service implementation.
+   */
+  registerService<ServiceImplementation>(name: string, service: ServiceImplementation): void;
+
+  /**
+   * @name serve
+   * @desc Start serving http connections.
+   */
+  serve(): void;
+}
+
+type methodDef = {
+  [key: string]: (ctx: Context, reqBody: unknown) => Promise<unknown>;
+}
+
+/**
+ * @name Handler
+ * @desc Handler type definition.
+ */
+export type Handler<Request, Response> = (ctx: Context, req: Request) => Promise<Response>;
+
+/**
+ * @name createContext
+ * @desc Create a new context.
+ * @param request
+ * @param info
+ */
+export function createContext(request: Request, info: Deno.ServeHandlerInfo): Context {
+  return {
+    request: () => request,
+    info: () => info,
+  };
+}
+
 
 /**
  * @name createApp

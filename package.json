@@ -1,4 +1,4 @@
 {
-  "name": "@skamentskiy/jrpc",
+  "name": "skamentskiy/jrpc",
   "main": "src/main.ts"
 }
